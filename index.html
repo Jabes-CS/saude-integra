@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaúdeIntegra — Início</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.30.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/temas.css">
+  <style>
+    /* estilos só desta tela (login e painel inicial) */
+    .login-fundo { min-height:100vh; display:grid; place-items:center; padding:24px; }
+    .login-cartao { background:var(--cor-superficie); border:1px solid var(--cor-borda); border-radius:18px; box-shadow:var(--sombra); padding:36px; width:100%; max-width:380px; text-align:center; animation:surgir .4s ease; }
+    .login-logo { width:60px; height:60px; border-radius:16px; background:var(--cor-primaria); color:#fff; display:grid; place-items:center; font-size:32px; margin:0 auto 16px; }
+    .login-cartao h1 { font-size:24px; }
+    .login-cartao .sub { color:var(--cor-texto-suave); font-size:14px; margin-bottom:24px; }
+    .login-cartao .campo { text-align:left; }
+    .cartoes { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .cartao-tela { background:var(--cor-superficie); border:1px solid var(--cor-borda); border-radius:var(--raio); box-shadow:var(--sombra); padding:20px; transition:.18s; display:block; animation:surgir .4s ease both; }
+    .cartao-tela:hover { transform:translateY(-3px); border-color:var(--cor-primaria); }
+    .cartao-tela .ic { width:46px; height:46px; border-radius:11px; background:var(--prio-ganho-fundo); color:var(--cor-primaria); display:grid; place-items:center; font-size:24px; margin-bottom:14px; }
+    .cartao-tela h3 { font-size:17px; color:var(--cor-texto); }
+    .cartao-tela p { font-size:13px; color:var(--cor-texto-suave); margin:6px 0 12px; }
+    .cartao-tela .resp { font-size:12px; color:var(--cor-texto-suave); }
+    .escondido { display:none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- ============ TELA DE LOGIN (demonstração) ============ -->
+  <section id="login" class="login-fundo">
+    <div class="login-cartao">
+      <div class="login-logo"><i class="ti ti-plus"></i></div>
+      <h1>SaúdeIntegra</h1>
+      <p class="sub">Gestão integrada de saúde</p>
+      <div class="campo">
+        <label>E-mail</label>
+        <input type="email" id="email" value="recepcao@saudeintegra.com">
+      </div>
+      <div class="campo">
+        <label>Senha</label>
+        <input type="password" id="senha" value="123456">
+      </div>
+      <button class="btn btn--principal" style="width:100%; margin-top:6px;" onclick="entrar()">
+        <i class="ti ti-login-2"></i> Entrar
+      </button>
+      <p class="sub" style="margin:16px 0 0; font-size:12px;">Tela demonstrativa — qualquer dado entra.</p>
+    </div>
+  </section>
+
+  <!-- ============ PAINEL INICIAL (depois do login) ============ -->
+  <div id="painel" class="escondido">
+    <div id="appbar"></div>
+    <main class="pagina">
+      <div class="cabecalho-pagina">
+        <p class="trilha">Início</p>
+        <h1>Bem-vindo(a) ao SaúdeIntegra</h1>
+        <p>Sistema dividido em 5 telas integradas. Cada tela reúne 4 funções, classificadas por prioridade segundo a matriz Impacto × Esforço (COBIT).</p>
+      </div>
+
+      <!-- resumo do dia -->
+      <div class="bloco">
+        <div class="bloco__corpo">
+          <div class="metricas" id="resumo"></div>
+        </div>
+      </div>
+
+      <!-- atalhos para as 5 telas -->
+      <div class="cartoes" id="cartoes"></div>
+    </main>
+  </div>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    /* login fingido: só revela o painel e guarda na sessão */
+    function entrar() {
+      sessionStorage.setItem('si_logado', 'sim');
+      mostrarPainel();
+    }
+    function mostrarPainel() {
+      document.getElementById('login').classList.add('escondido');
+      document.getElementById('painel').classList.remove('escondido');
+      montarResumo();
+      montarCartoes();
+    }
+
+    function montarResumo() {
+      const consultas = DB.ler('consultas');
+      const hojeStr = new Date().toISOString().slice(0,10);
+      const doDia = consultas.filter(c => c.data === hojeStr);
+      const pendentes = consultas.filter(c => c.status === 'pendente').length;
+      const faturasPend = DB.ler('faturas').filter(f => f.status === 'pendente').length;
+      const m = [
+        ['Pacientes cadastrados', DB.ler('pacientes').length],
+        ['Consultas hoje', doDia.length],
+        ['Aguardando confirmação', pendentes],
+        ['Faturas pendentes', faturasPend]
+      ];
+      document.getElementById('resumo').innerHTML = m.map(([r,v]) =>
+        `<div class="metrica"><div class="rotulo">${r}</div><div class="valor">${v}</div></div>`).join('');
+    }
+
+    const RESPONSAVEIS = {
+      'tela1-pacientes.html': { resp:'Jefté',   desc:'Cadastro, prontuário, temas e IoT' },
+      'tela2-agenda.html':    { resp:'Thiago',  desc:'Agenda, laboratórios, relatórios e IA' },
+      'tela3-faturamento.html':{ resp:'Jabes',  desc:'Confirmações, faturamento, exportação e portal' },
+      'tela4-atendimentos.html':{ resp:'Lucas', desc:'Atendimentos, linha do cuidado, avisos e BI' },
+      'tela5-administrativo.html':{ resp:'Richard', desc:'Salas, financeiro, observações e ERPs' }
+    };
+    function montarCartoes() {
+      const html = TELAS.filter(t => t.arq !== 'index.html').map((t,i) => {
+        const r = RESPONSAVEIS[t.arq];
+        return `<a class="cartao-tela" href="${t.arq}" style="animation-delay:${i*.05}s">
+          <div class="ic"><i class="ti ${t.icone}"></i></div>
+          <h3>${t.nome}</h3>
+          <p>${r.desc}</p>
+          <span class="resp"><i class="ti ti-user" style="vertical-align:-2px"></i> Responsável: ${r.resp}</span>
+        </a>`;
+      }).join('');
+      document.getElementById('cartoes').innerHTML = html;
+    }
+
+    /* se já entrou nesta sessão, pula o login */
+    if (sessionStorage.getItem('si_logado')) mostrarPainel();
+  </script>
+</body>
+</html>

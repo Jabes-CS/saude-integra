@@ -1,0 +1,41 @@
+/* =====================================================================
+   SaúdeIntegra — Temas alternativos de cor
+   ---------------------------------------------------------------------
+   Cada tema redefine as variáveis de cor. O arquivo js/app.js coloca o
+   atributo  data-tema="..."  na tag <html> e salva a escolha. Por isso a
+   troca de tema (função "Personalização de temas/cores", Tela 1) funciona
+   em todas as telas e continua valendo depois de recarregar a página.
+   ===================================================================== */
+
+/* ---- Tema OCEANO (azul) ---- */
+[data-tema="oceano"] {
+  --cor-primaria:#185FA5; --cor-primaria-escura:#0C447C; --cor-destaque:#378ADD; --cor-apoio:#0F6E56;
+  --prio-ganho-fundo:#E6F1FB; --prio-ganho-texto:#0C447C;
+}
+
+/* ---- Tema AMEIXA (roxo) ---- */
+[data-tema="ameixa"] {
+  --cor-primaria:#534AB7; --cor-primaria-escura:#3C3489; --cor-destaque:#7F77DD; --cor-apoio:#993556;
+  --prio-ganho-fundo:#EEEDFE; --prio-ganho-texto:#3C3489;
+}
+
+/* ---- Tema CORAL (laranja/quente) ---- */
+[data-tema="coral"] {
+  --cor-primaria:#993C1D; --cor-primaria-escura:#712B13; --cor-destaque:#D85A30; --cor-apoio:#185FA5;
+  --prio-ganho-fundo:#FAECE7; --prio-ganho-texto:#712B13;
+}
+
+/* ---- Tema ESCURO (modo noturno) ---- */
+[data-tema="escuro"] {
+  --cor-primaria:#1D9E75; --cor-primaria-escura:#0F6E56; --cor-destaque:#5DCAA5; --cor-apoio:#85B7EB;
+  --cor-fundo:#11201B; --cor-superficie:#18302A; --cor-texto:#EAF3EF; --cor-texto-suave:#9FB8B0; --cor-borda:#264A40;
+  --status-ok-fundo:#0F6E56; --status-ok-texto:#E1F5EE;
+  --status-pendente-fundo:#633806; --status-pendente-texto:#FAEEDA;
+  --status-erro-fundo:#791F1F; --status-erro-texto:#FCEBEB;
+  --status-info-fundo:#0C447C; --status-info-texto:#E6F1FB;
+  --prio-ganho-fundo:#0F6E56; --prio-ganho-texto:#E1F5EE;
+  --prio-estrat-fundo:#0C447C; --prio-estrat-texto:#E6F1FB;
+  --prio-incr-fundo:#2C2C2A; --prio-incr-texto:#D3D1C7;
+  --prio-evitar-fundo:#501313; --prio-evitar-texto:#F7C1C1;
+  --sombra:0 1px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}

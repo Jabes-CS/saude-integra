@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaúdeIntegra — Faturamento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.30.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/temas.css">
+</head>
+<body>
+  <div id="appbar"></div>
+  <main class="pagina">
+    <div class="cabecalho-pagina">
+      <p class="trilha"><a href="index.html">Início</a> › Faturamento</p>
+      <h1>Faturamento e confirmações</h1>
+      <p>Confirmação de consultas, cobrança por convênio e exportação. Responsável: Jabes.</p>
+    </div>
+
+    <!-- FUNÇÃO 1: Confirmação via WhatsApp/SMS -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-message-circle"></i></div>
+        <div class="bloco__titulo">
+          <h2>Confirmação de consultas</h2>
+          <p>Envio simulado de WhatsApp/SMS para confirmar presença.</p>
+        </div>
+        <span class="prio prio--ganho"><i class="ti ti-bolt"></i> Ganho rápido</span>
+      </div>
+      <div class="bloco__corpo">
+        <ul class="lista" id="lista-confirmacao"></ul>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 2: Faturamento integrado -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-receipt-2"></i></div>
+        <div class="bloco__titulo">
+          <h2>Faturamento integrado (convênios e SUS)</h2>
+          <p>Controle de cobranças por convênio.</p>
+        </div>
+        <span class="prio prio--estrat"><i class="ti ti-target"></i> Projeto estratégico</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="metricas" id="fat-metricas" style="margin-bottom:18px"></div>
+        <div class="linha entre" style="margin-bottom:12px">
+          <strong>Faturas</strong>
+          <div class="campo" style="margin:0;min-width:200px"><select id="fat-filtro" onchange="listarFaturas()"></select></div>
+        </div>
+        <table class="tabela">
+          <thead><tr><th>Paciente</th><th>Convênio</th><th>Valor</th><th>Status</th><th></th></tr></thead>
+          <tbody id="lista-faturas"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 3: Exportação básica -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-file-export"></i></div>
+        <div class="bloco__titulo">
+          <h2>Exportação básica de dados</h2>
+          <p>Baixe as faturas em Excel (CSV) ou gere um PDF.</p>
+        </div>
+        <span class="prio prio--incr"><i class="ti ti-adjustments"></i> Melhoria incremental</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="linha">
+          <button class="btn btn--principal" onclick="exportarCSV()"><i class="ti ti-file-spreadsheet"></i> Exportar Excel (CSV)</button>
+          <button class="btn btn--contorno" onclick="window.print()"><i class="ti ti-printer"></i> Exportar PDF (imprimir)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 4: Portal com gamificação (demonstração) -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone" style="background:var(--prio-evitar-fundo);color:var(--prio-evitar-texto)"><i class="ti ti-trophy"></i></div>
+        <div class="bloco__titulo">
+          <h2>Portal com gamificação para pacientes</h2>
+          <p>Pontos, conquistas e engajamento.</p>
+        </div>
+        <span class="prio prio--evitar"><i class="ti ti-clock-pause"></i> Evitar / postergar</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="demo"><i class="ti ti-info-circle"></i><div>Função de <strong>baixo impacto / alto esforço</strong>. Demonstração visual com dados simulados.</div></div>
+        <div class="metricas">
+          <div class="metrica"><div class="rotulo"><i class="ti ti-star"></i> Pontos do paciente</div><div class="valor">1.250</div></div>
+          <div class="metrica"><div class="rotulo"><i class="ti ti-award"></i> Conquistas</div><div class="valor">8</div></div>
+          <div class="metrica"><div class="rotulo"><i class="ti ti-flame"></i> Sequência</div><div class="valor">15 dias</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tela3.js"></script>
+</body>
+</html>

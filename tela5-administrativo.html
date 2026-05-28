@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaúdeIntegra — Administração</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.30.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/temas.css">
+</head>
+<body>
+  <div id="appbar"></div>
+  <main class="pagina">
+    <div class="cabecalho-pagina">
+      <p class="trilha"><a href="index.html">Início</a> › Administração</p>
+      <h1>Administração</h1>
+      <p>Recursos, financeiro e configurações. Responsável: Richard.</p>
+    </div>
+
+    <!-- FUNÇÃO 1: Disponibilidade de salas/profissionais -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-door"></i></div>
+        <div class="bloco__titulo">
+          <h2>Disponibilidade de salas e profissionais</h2>
+          <p>Controle do que está livre ou ocupado.</p>
+        </div>
+        <span class="prio prio--ganho"><i class="ti ti-bolt"></i> Ganho rápido</span>
+      </div>
+      <div class="bloco__corpo">
+        <ul class="lista" id="lista-salas"></ul>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 2: Controle financeiro completo -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-cash-banknote"></i></div>
+        <div class="bloco__titulo">
+          <h2>Controle financeiro completo</h2>
+          <p>Contas, repasses e auditoria.</p>
+        </div>
+        <span class="prio prio--estrat"><i class="ti ti-target"></i> Projeto estratégico</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="metricas" id="fin-metricas" style="margin-bottom:18px"></div>
+        <div class="grade-form">
+          <div class="campo"><label>Descrição</label><input id="fin-desc" placeholder="Ex: repasse convênio"></div>
+          <div class="campo"><label>Valor (R$)</label><input type="number" id="fin-valor" placeholder="0,00"></div>
+        </div>
+        <div class="linha" style="margin-bottom:14px">
+          <select id="fin-tipo" style="padding:10px 12px;border:1px solid var(--cor-borda);border-radius:9px;background:var(--cor-fundo)">
+            <option value="entrada">Entrada</option><option value="saida">Saída</option>
+          </select>
+          <button class="btn btn--suave" onclick="lancar()"><i class="ti ti-plus"></i> Lançar</button>
+        </div>
+        <table class="tabela">
+          <thead><tr><th>Descrição</th><th>Tipo</th><th>Valor</th><th>Data</th></tr></thead>
+          <tbody id="lista-financeiro"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 3: Observações administrativas -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-clipboard-text"></i></div>
+        <div class="bloco__titulo">
+          <h2>Observações administrativas</h2>
+          <p>Anotações internas da administração.</p>
+        </div>
+        <span class="prio prio--incr"><i class="ti ti-adjustments"></i> Melhoria incremental</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="linha" style="margin-bottom:14px">
+          <input id="obs-texto" placeholder="Nova observação administrativa" style="flex:1;padding:10px 12px;border:1px solid var(--cor-borda);border-radius:9px;background:var(--cor-fundo)">
+          <button class="btn btn--suave" onclick="adicionarObs()"><i class="ti ti-plus"></i> Adicionar</button>
+        </div>
+        <ul class="lista" id="lista-obs"></ul>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 4: Integração com múltiplos ERPs (demonstração) -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone" style="background:var(--prio-evitar-fundo);color:var(--prio-evitar-texto)"><i class="ti ti-plug-connected"></i></div>
+        <div class="bloco__titulo">
+          <h2>Integração com múltiplos ERPs externos</h2>
+          <p>Conexão simultânea com sistemas de terceiros.</p>
+        </div>
+        <span class="prio prio--evitar"><i class="ti ti-clock-pause"></i> Evitar / postergar</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="demo"><i class="ti ti-info-circle"></i><div>Função de <strong>baixo impacto / alto esforço</strong>. Conexões ilustrativas (simuladas).</div></div>
+        <ul class="lista">
+          <li class="item"><i class="ti ti-building-warehouse" style="font-size:20px;color:var(--cor-apoio)"></i><div class="item__principal"><strong>ERP Financeiro TOTVS</strong><span>Sincronização contábil</span></div><span class="status status--ok">conectado</span></li>
+          <li class="item"><i class="ti ti-building-store" style="font-size:20px;color:var(--cor-apoio)"></i><div class="item__principal"><strong>ERP Estoque SAP</strong><span>Materiais e insumos</span></div><span class="status status--pendente">sincronizando</span></li>
+          <li class="item"><i class="ti ti-cloud" style="font-size:20px;color:var(--cor-apoio)"></i><div class="item__principal"><strong>ERP RH Senior</strong><span>Folha de pagamento</span></div><span class="status status--erro">offline</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- utilitário: restaurar dados -->
+    <div class="linha entre" style="margin-top:8px">
+      <span style="font-size:13px;color:var(--cor-texto-suave)">Quer recomeçar com os dados de exemplo?</span>
+      <button class="btn btn--contorno btn--pequeno" onclick="if(confirm('Apagar tudo e restaurar os dados de exemplo?')){DB.resetar();location.reload();}"><i class="ti ti-refresh"></i> Restaurar dados de exemplo</button>
+    </div>
+  </main>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tela5.js"></script>
+</body>
+</html>

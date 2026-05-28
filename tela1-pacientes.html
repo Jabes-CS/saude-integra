@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaúdeIntegra — Pacientes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.30.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/temas.css">
+</head>
+<body>
+  <div id="appbar"></div>
+  <main class="pagina">
+    <div class="cabecalho-pagina">
+      <p class="trilha"><a href="index.html">Início</a> › Pacientes</p>
+      <h1>Pacientes</h1>
+      <p>Cadastro, prontuário e configurações de exibição. Responsável: Jefté.</p>
+    </div>
+
+    <!-- FUNÇÃO 1: Cadastro unificado de pacientes -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-user-plus"></i></div>
+        <div class="bloco__titulo">
+          <h2>Cadastro unificado de pacientes</h2>
+          <p>Dados pessoais, contato e histórico básico.</p>
+        </div>
+        <span class="prio prio--ganho"><i class="ti ti-bolt"></i> Ganho rápido</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="grade-form">
+          <div class="campo"><label>Nome completo</label><input id="p-nome" placeholder="Ex: João da Silva"></div>
+          <div class="campo"><label>Data de nascimento</label><input type="date" id="p-nasc"></div>
+          <div class="campo"><label>Telefone</label><input id="p-tel" placeholder="(00) 00000-0000"></div>
+          <div class="campo"><label>E-mail</label><input type="email" id="p-email" placeholder="email@exemplo.com"></div>
+          <div class="campo"><label>Convênio</label><select id="p-convenio"></select></div>
+          <div class="campo"><label>Histórico básico</label><input id="p-hist" placeholder="Alergias, condições..."></div>
+        </div>
+        <button class="btn btn--principal" onclick="cadastrarPaciente()"><i class="ti ti-check"></i> Cadastrar paciente</button>
+        <hr class="divisor">
+        <table class="tabela">
+          <thead><tr><th>Nome</th><th>Idade</th><th>Contato</th><th>Convênio</th><th></th></tr></thead>
+          <tbody id="lista-pacientes"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 2: Prontuário eletrônico (checklist) -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-clipboard-list"></i></div>
+        <div class="bloco__titulo">
+          <h2>Prontuário eletrônico</h2>
+          <p>Histórico e checklist de tarefas: crie tarefas, marque colegas e conclua.</p>
+        </div>
+        <span class="prio prio--estrat"><i class="ti ti-target"></i> Projeto estratégico</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="campo"><label>Paciente</label><select id="pront-paciente" onchange="abrirProntuario()"></select></div>
+        <div id="pront-historico" class="status status--info" style="margin-bottom:16px"></div>
+        <div class="linha" style="margin-bottom:14px">
+          <input id="tar-texto" placeholder="Nova tarefa (ex: solicitar exame)" style="flex:2; padding:10px 12px; border:1px solid var(--cor-borda); border-radius:9px; background:var(--cor-fundo)">
+          <select id="tar-resp" style="flex:1; padding:10px 12px; border:1px solid var(--cor-borda); border-radius:9px; background:var(--cor-fundo)"></select>
+          <button class="btn btn--suave" onclick="adicionarTarefa()"><i class="ti ti-plus"></i> Adicionar</button>
+        </div>
+        <ul class="lista" id="lista-tarefas"></ul>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 3: Personalização de temas/cores -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone"><i class="ti ti-palette"></i></div>
+        <div class="bloco__titulo">
+          <h2>Personalização de temas/cores</h2>
+          <p>Escolha o tema. A preferência vale para todo o sistema e fica salva.</p>
+        </div>
+        <span class="prio prio--incr"><i class="ti ti-adjustments"></i> Melhoria incremental</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="metricas" id="lista-temas" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"></div>
+      </div>
+    </section>
+
+    <!-- FUNÇÃO 4: Integração com IoT (demonstração) -->
+    <section class="bloco">
+      <div class="bloco__topo">
+        <div class="bloco__icone" style="background:var(--prio-evitar-fundo);color:var(--prio-evitar-texto)"><i class="ti ti-device-watch"></i></div>
+        <div class="bloco__titulo">
+          <h2>Integração com dispositivos IoT</h2>
+          <p>Wearables e sensores de saúde.</p>
+        </div>
+        <span class="prio prio--evitar"><i class="ti ti-clock-pause"></i> Evitar / postergar</span>
+      </div>
+      <div class="bloco__corpo">
+        <div class="demo"><i class="ti ti-info-circle"></i><div>Função classificada como <strong>baixo impacto / alto esforço</strong>. Exibida apenas como demonstração visual, com dados simulados.</div></div>
+        <div class="metricas">
+          <div class="metrica"><div class="rotulo"><i class="ti ti-heartbeat"></i> Batimentos</div><div class="valor">78 <span style="font-size:13px;color:var(--cor-texto-suave)">bpm</span></div></div>
+          <div class="metrica"><div class="rotulo"><i class="ti ti-walk"></i> Passos hoje</div><div class="valor">6.482</div></div>
+          <div class="metrica"><div class="rotulo"><i class="ti ti-droplet"></i> Saturação</div><div class="valor">97<span style="font-size:13px;color:var(--cor-texto-suave)">%</span></div></div>
+          <div class="metrica"><div class="rotulo"><i class="ti ti-moon"></i> Sono</div><div class="valor">7h12</div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/dados.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tela1.js"></script>
+</body>
+</html>
